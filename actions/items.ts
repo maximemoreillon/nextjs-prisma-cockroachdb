@@ -6,8 +6,12 @@ import { redirect } from "next/navigation";
 export async function createItemAction(state: any, formData: FormData) {
   const name = formData.get("name")?.toString();
   if (!name) return { error: "Missing name" };
-  const newItem = await prismaClient.item.create({ data: { name } });
-  return redirect(`/items/${newItem.id}`);
+  try {
+    const newItem = await prismaClient.item.create({ data: { name } });
+    return redirect(`/items/${newItem.id}`);
+  } catch (error) {
+    return { error };
+  }
 }
 
 export async function getItems() {
@@ -16,8 +20,7 @@ export async function getItems() {
 }
 
 export async function getItem(id: number) {
-  const item = await prismaClient.item.findUnique({ where: { id } });
-  return item;
+  return await prismaClient.item.findUnique({ where: { id } });
 }
 
 export async function deleteItem(id: number) {

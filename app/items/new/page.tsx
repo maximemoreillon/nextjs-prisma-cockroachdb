@@ -56,7 +56,9 @@ export default function NewInput() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={pending} type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
     </>
