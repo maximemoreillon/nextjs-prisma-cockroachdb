@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default async function Items() {
-  const items = await getItems();
+  const data = await getItems();
   return (
     <>
       <div className="flex justify-between">
@@ -14,8 +14,10 @@ export default async function Items() {
         </Button>
       </div>
       <ul className="my-6">
-        {items.map((item, index) => (
-          <li key={index}>{item.name}</li>
+        {data.items.map((item, index) => (
+          <li key={index}>
+            <Link href={`/items/${item.id}`}>{item.name}</Link>
+          </li>
         ))}
       </ul>
     </>
